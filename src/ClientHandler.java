@@ -45,7 +45,8 @@ class ClientHandler extends Thread {
                         out.println("Exiting the program");
 //                        in.close();
 //                        out.close();
-                        System.exit(0);
+                        return;
+                       // System.exit(0);
                     }
                     if (clientSelection < 1 || clientSelection > 5) {
                         out.println("Invalid selection.");
@@ -136,6 +137,13 @@ class ClientHandler extends Thread {
 
         } catch (IOException e) {
             System.err.println("Error handling client: " + e.getMessage());
+        } finally {
+            try {
+                System.out.println("Client disconnected: " + clientSocket.getInetAddress());
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
